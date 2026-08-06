@@ -43,7 +43,7 @@ example
 /android
 
 
-.pretierrc
 CLAUDE.md
 /.claude
-.prettierrc
+.prettierr
+/.vscode
