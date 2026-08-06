@@ -1,9 +1,10 @@
 {
-  "name": "cinegolpe",
+  "name": "cineclube",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~57.0.9",
+    "@react-native-vector-icons/ionicons": "^13.1.2",
     "expo": "~57.0.10",
     "expo-constants": "~57.0.9",
     "expo-device": "~57.0.1",
