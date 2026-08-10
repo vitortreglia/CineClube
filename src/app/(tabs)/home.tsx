@@ -1,22 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { styles } from '@/constants/theme';
+import { AuthContext } from '@/contexts/AuthContext';
+import { useContext } from 'react';
+import { Text, View } from 'react-native';
 
 export default function Home() {
+    const { usuario } = useContext(AuthContext);
     return (
         <View style={styles.container}>
-            <Text style={styles.texto}>Bem-vindo</Text>
+            <Text style={styles.tituloEsquerda}>
+                Bem-vindo, {usuario?.user_metadata.nome}
+            </Text>
+            <View style={styles.block}>
+                <Text style={styles.texto}>Bem-vindo</Text>
+            </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#0d0d1a',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    texto: {
-        color: '#fff',
-        fontSize: 24,
-    },
-});

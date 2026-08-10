@@ -5,6 +5,7 @@
   "dependencies": {
     "@expo/ui": "~57.0.9",
     "@react-native-vector-icons/ionicons": "^13.1.2",
+    "@supabase/supabase-js": "^2.112.1",
     "expo": "~57.0.10",
     "expo-constants": "~57.0.9",
     "expo-device": "~57.0.1",
