@@ -1,3 +1,4 @@
+import OverlayErro from '@/components/OverlayErro';
 import { styles } from '@/constants/theme';
 import { AuthContext } from '@/contexts/AuthContext';
 import { router } from 'expo-router';
@@ -9,19 +10,18 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    function fechar() {
-        setPopUp(false);
-    }
-
     const { login } = useContext(AuthContext);
 
     async function entrar() {
-        const requisicao = await login(email, senha);
-        if (typeof requisicao === 'string') {
-            setPopUp(true);
-            console.log(requisicao);
-        } else if (requisicao === null) {
-            router.replace('/(tabs)/home');
+        try {
+            const requisicao = await login(email, senha);
+            if (typeof requisicao === 'string') {
+                setPopUp(true);
+            } else if (requisicao === null) {
+                router.replace('/(tabs)/home');
+            }
+        } catch (erro) {
+            console.log('Erro:', erro);
         }
     }
 
@@ -56,17 +56,10 @@ export default function Login() {
                 <Text style={styles.textoBotao}>Cadastrar</Text>
             </TouchableOpacity>
             {popUp && (
-                <View style={styles.fundoPopUp}>
-                    <View style={styles.cardPopUp}>
-                        <Text style={styles.texto}>Erro.</Text>
-                        <TouchableOpacity
-                            style={styles.botaoErro}
-                            onPress={() => fechar()}
-                        >
-                            <Text style={styles.textoBotao}>Ok</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                <OverlayErro
+                    texto={'Falha ao fazer login'}
+                    onFechar={() => setPopUp(false)}
+                />
             )}
         </View>
     );

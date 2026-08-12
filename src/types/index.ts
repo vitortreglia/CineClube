@@ -15,8 +15,21 @@ export interface Usuario {
 export interface Clube {
     ID: number;
     nome: string;
-    membros: Usuario[];
-    //temas: Temas[];
+    visibilidade: string;
+    papel: string;
+    sobre: string;
+    criado_em: string;
+    criado_por: string;
+}
+
+export interface Membro {
+    ID: number;
+    usuario_id: number;
+    nome: string;
+    usuario: string;
+    avatar_url: string;
+    papel: string;
+    entrou_em: string;
 }
 
 export interface Nota {
@@ -46,4 +59,14 @@ export interface Filme {
     media: number;
     selecionado: boolean;
     comentarios: Comentario[];
+}
+
+export interface Evento {
+    ID: number;
+    clubeID: number;
+    criado_em: string;
+    data: string;
+    tipo: string;
+    informacoes: string;
+    status: string;
 }

@@ -7,6 +7,12 @@ export interface AuthContextProps {
     session: Session | null;
     login: (email: string, senha: string) => Promise<string | null>;
     logout: () => Promise<void>;
+    signUp: (
+        email: string,
+        nome: string,
+        usuario: string,
+        senha: string,
+    ) => Promise<string | null>;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -14,6 +20,12 @@ const AuthContext = createContext<AuthContextProps>({
     session: null,
     login: async (email: string, senha: string) => null,
     logout: async () => {},
+    signUp: async (
+        email: string,
+        nome: string,
+        usuario: string,
+        senha: string,
+    ) => null,
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -41,6 +53,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setSession(null);
     };
 
+    const signUp = async (
+        email: string,
+        nome: string,
+        usuario: string,
+        senha: string,
+    ) => {
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password: senha,
+            options: {
+                data: {
+                    nome,
+                    usuario,
+                },
+            },
+        });
+        if (error) {
+            return error.message;
+        } else if (data.user === null && data.session === null) {
+            return 'erro';
+        } else if (data) {
+            setUsuario(data.user);
+            setSession(data.session);
+        }
+        return null;
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -48,6 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 session,
                 login,
                 logout,
+                signUp,
             }}
         >
             {children}
