@@ -11,6 +11,7 @@ export default function LayoutRaiz() {
                 <Stack.Screen name="criarClube" />
                 <Stack.Screen name="clube/[id]" />
                 <Stack.Screen name="(tabs)" />
+                <Stack.Screen name="entrarClube" />
             </Stack>
         </AuthProvider>
     );

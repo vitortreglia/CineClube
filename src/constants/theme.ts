@@ -221,4 +221,16 @@ export const styles = StyleSheet.create({
         backgroundColor: '#161622',
         justifyContent: 'center',
     },
+    cardEvento: {
+        maxHeight: 200,
+    },
+    botaoEvento: {
+        borderRadius: 8,
+        borderColor: '#e50914',
+        borderWidth: 1,
+        backgroundColor: 'transparent',
+        padding: 10,
+        marginTop: 8,
+        alignItems: 'center',
+    },
 });

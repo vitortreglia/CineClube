@@ -13,7 +13,7 @@ export default function NovoClube() {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.botao}
-                onPress={() => router.push('/criarClube')}
+                onPress={() => router.push('/entrarClube')}
             >
                 <Text style={styles.textoBotao}>Entrar em clube existente</Text>
             </TouchableOpacity>

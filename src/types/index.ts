@@ -69,4 +69,7 @@ export interface Evento {
     tipo: string;
     informacoes: string;
     status: string;
+    titulo: string;
+    data_sorteio_tema: string;
+    data_sorteio_filme: string;
 }

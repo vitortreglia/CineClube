@@ -1,13 +1,14 @@
 // hooks/useClube.ts
 import { AuthContext } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
-import { Clube, Membro } from '@/types';
+import { Clube, Evento, Membro } from '@/types';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useContext, useState } from 'react';
 
 export function useClube(id: number) {
     const [clube, setClube] = useState<Clube>();
     const [membros, setMembros] = useState<Membro[]>();
+    const [eventos, setEventos] = useState<Evento[]>();
     const { usuario } = useContext(AuthContext);
 
     useFocusEffect(
@@ -40,7 +41,7 @@ export function useClube(id: number) {
                         'id, usuario_id, papel, entrou_em, perfis!membros_perfis_fk(nome, avatar_url, usuario)',
                     )
                     .eq('clube_id', id);
-
+                console.log(reqMembros);
                 const resultado = reqMembros?.map((item: any) => ({
                     ID: item.id,
                     usuario_id: item.usuario_id,
@@ -51,10 +52,31 @@ export function useClube(id: number) {
                     entrou_em: item.entrou_em,
                 }));
                 setMembros(resultado);
+
+                const { data: reqEventos } = await supabase
+                    .from('eventos')
+                    .select(
+                        'id, clube_id, criado_em, data, tipo, informacoes, status, titulo, data_sorteio_tema, data_sorteio_filme',
+                    )
+                    .eq('clube_id', id);
+
+                const dataEventos = reqEventos?.map((item: any) => ({
+                    ID: item.id,
+                    clubeID: item.clube_id,
+                    criado_em: item.criado_em,
+                    data: item.data,
+                    tipo: item.tipo,
+                    informacoes: item.informacoes,
+                    status: item.status,
+                    titulo: item.titulo,
+                    data_sorteio_tema: item.data_sorteio_tema,
+                    data_sorteio_filme: item.data_sorteio_filme,
+                }));
+                setEventos(dataEventos);
             };
             buscar();
         }, []),
     );
 
-    return { clube, membros };
+    return { clube, membros, eventos };
 }
